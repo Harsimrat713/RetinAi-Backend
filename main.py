@@ -2,6 +2,9 @@ from typing import List
 from fastapi import FastAPI, File, UploadFile, Form
 
 from evaluation import evaluation
+from utilities import localImageSave, imagePaths, deleteSessionImages
+from format_images import formatImages
+from imageCropping import cropImages
 
 app = FastAPI()
 
@@ -18,8 +21,18 @@ async def eye_evaluation(
     images: List[UploadFile] = File(...) # array of images
     ):
     print("got request")
+    # save images localy
+    imageList = await localImageSave(images)
+    # format images
+    formatImages(imagePaths[0], imagePaths[1])
+    # crop images
+    cropImages(imagePaths[1], imagePaths[2], imageList)
     # evaluate images
-    results = await evaluation(images)
+    # results = await evaluation(imageList)
+    # average results
+    # save to db
+    # delete session images
+    # deleteSessionImages(imagePaths)
 
     return {
         "kiosk_id": kiosk_id, 

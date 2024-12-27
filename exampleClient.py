@@ -1,5 +1,5 @@
 # an example of how piboard will call api
-import requests
+import main
 
 # Prepare the files for the request
 files = [
@@ -15,7 +15,7 @@ time_stamp = 123456
 
 # Send the POST request
 request_url = 'http://127.0.0.1:8000'
-response = requests.post('{request_url}/eye_evaluation/{kiosk_id}?kiosk_location={kiosk_location}&time_stamp={time_stamp}', files=files)
+response = main.post('{request_url}/eye_evaluation/{kiosk_id}?kiosk_location={kiosk_location}&time_stamp={time_stamp}', files=files)
 
 print(response.status_code)
 print(response.json())
