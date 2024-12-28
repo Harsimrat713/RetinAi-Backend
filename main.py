@@ -39,17 +39,16 @@ async def eye_evaluation(
     sessionInfo = cropImages(imagePaths[1], imagePaths[2], imageList, sessionInfo)
     sessionTimings['ImagesCropped'] = time.time()
     # evaluate images
-    # sessionInfo = await evaluation(imageList)
+    sessionInfo = evaluation(imagePaths[2], sessionInfo)
+    sessionTimings['ImagesEvaluated'] = time.time()
     # average results
     # save to db
-    print(sessionInfo)
-    print(sessionTimings)
     # delete session images
-    # deleteSessionImages(imagePaths)
+    deleteSessionImages(imagePaths)
 
     return {
-        "kiosk_id": kiosk_id, 
-        "kiosk_location":kiosk_location, 
-        "time_stamp":time_stamp, 
-        "uploaded_files": imageList
+        "kiosk_id": kiosk_id,
+        "uploaded_files": imageList,
+        "image_Info": sessionInfo,
+        'session_Timings':sessionTimings
         }

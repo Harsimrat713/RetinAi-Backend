@@ -18,9 +18,8 @@ def createImageInfo(imageNames):
     for image in imageNames:
         sessionInfo.append({
             'name':image,
-            'formatted':False,
             'cropped':False,
-            'score':0,
+            'prediction':'',
             'selectedForDisp':False})
     return sessionInfo
 

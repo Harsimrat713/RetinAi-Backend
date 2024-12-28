@@ -1,7 +1,6 @@
 from ultralytics import YOLO
 from PIL import Image
 
-
 #from utilities import imagePaths
 
 # Load the YOLO model
