@@ -33,15 +33,16 @@ def crop_image(model, image_path, imageName, saveLocation):
 
         return cropped_image
 
-def cropImages(imageLocation, saveLocation, imageNames):
+def cropImages(imageLocation, saveLocation, imageNames, sessionInfo):
     # take the location of where the images are, where the cropped images will be saved, and the names of the images
-    for image in imageNames:
+    for image, imageInfo in zip(imageNames, sessionInfo):
         cropped = crop_image(model, f'{imageLocation}/uploaded_{image}', image, saveLocation)
         if cropped:
             cropped.show()  # Display image
+            imageInfo['cropped'] = True
         else:
             print("No cropping performed.")
-    return
+    return sessionInfo
 
 '''
 # for testing

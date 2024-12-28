@@ -1,7 +1,5 @@
-from utilities import genKey
+modelPath = 'models/mobilenetv3_94.pth'
 
 async def evaluation(images):
-    # generate a key for this session
-    #session_key = genKey()
     results = []
     return results

@@ -1,6 +1,28 @@
 import uuid, os
 
+# Paths to each of the images
 imagePaths = ['session_images/recieved_images', 'session_images/formatted_images', 'session_images/cropped_images']
+# information on the time for functions to complete
+sessionTimings = {
+    "ImagesSent":0,
+    "ImagesRecieved":0,
+    "ImagesSavedLocally":0,
+    "ImagesFormatted":0,
+    "ImagesCropped":0,
+    "ImagesEvaluated":0,
+    }
+
+def createImageInfo(imageNames):
+    # create the dictionary array that holds the image data for one session
+    sessionInfo = []
+    for image in imageNames:
+        sessionInfo.append({
+            'name':image,
+            'formatted':False,
+            'cropped':False,
+            'score':0,
+            'selectedForDisp':False})
+    return sessionInfo
 
 def genKey():
     # generate key for data base
