@@ -1,11 +1,12 @@
 import time
 from typing import List
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile
 
 from evaluation import evaluation
 from utilities import localImageSave, deleteSessionImages, genKey, createImageInfo, imagePaths, sessionTimings
 from format_images import formatImages
 from imageCropping import cropImages
+from postProcess import postProcess
 
 app = FastAPI()
 
@@ -42,6 +43,7 @@ async def eye_evaluation(
     sessionInfo = evaluation(imagePaths[2], sessionInfo)
     sessionTimings['ImagesEvaluated'] = time.time()
     # average results
+    chosenImageNames, sessionInfo = postProcess(sessionInfo)
     # save to db
     # delete session images
     deleteSessionImages(imagePaths)
@@ -50,5 +52,6 @@ async def eye_evaluation(
         "kiosk_id": kiosk_id,
         "uploaded_files": imageList,
         "image_Info": sessionInfo,
-        'session_Timings':sessionTimings
+        "session_Timings":sessionTimings,
+        "chosen_Images": chosenImageNames
         }

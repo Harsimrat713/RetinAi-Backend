@@ -1,4 +1,4 @@
-import uuid, os
+import uuid, os, re
 
 # Paths to each of the images
 imagePaths = ['session_images/recieved_images', 'session_images/formatted_images', 'session_images/cropped_images']
@@ -16,8 +16,15 @@ def createImageInfo(imageNames):
     # create the dictionary array that holds the image data for one session
     sessionInfo = []
     for image in imageNames:
+        # add information from name into dict
+        match = re.search(r"(left|right)", image)
+        side = ''
+        if match:
+            side = match.group(1)
+        # add dict into array
         sessionInfo.append({
             'name':image,
+            'eyeSide': side,
             'cropped':False,
             'prediction':'',
             'selectedForDisp':False})
