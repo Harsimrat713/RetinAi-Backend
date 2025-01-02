@@ -1,4 +1,5 @@
 .env
 .venv
 models
+images_store
 __pycache__/

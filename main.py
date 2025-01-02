@@ -3,7 +3,7 @@ from typing import List
 from fastapi import FastAPI, File, UploadFile
 
 from evaluation import evaluation
-from utilities import deleteSessionImages, createImageInfo, sessionTimings
+from utilities import createImageInfo, sessionTimings
 from generateSessionFolder import generateSessionFolder
 from localImageSave import localImageSave
 from format_images import formatImages
@@ -48,7 +48,6 @@ async def eye_evaluation(
     chosenImageNames, sessionInfo = postProcess(sessionInfo)
     # save to db
     # delete session images (not needed and can save images as is)
-    #deleteSessionImages(imagePaths)
 
     return {
         "kiosk_id": kiosk_id,
