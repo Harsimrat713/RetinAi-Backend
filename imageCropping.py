@@ -1,8 +1,6 @@
 from ultralytics import YOLO
 from PIL import Image
 
-#from utilities import imagePaths
-
 # Load the YOLO model
 model = YOLO('models/retinai_yolo.pt')
 
@@ -37,7 +35,7 @@ def cropImages(imageLocation, saveLocation, imageNames, sessionInfo):
     for image, imageInfo in zip(imageNames, sessionInfo):
         cropped = crop_image(model, f'{imageLocation}/uploaded_{image}', image, saveLocation)
         if cropped:
-            cropped.show()  # Display image
+            # cropped.show()  # Display image
             imageInfo['cropped'] = True
         else:
             print("No cropping performed.")
