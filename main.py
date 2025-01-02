@@ -3,7 +3,9 @@ from typing import List
 from fastapi import FastAPI, File, UploadFile
 
 from evaluation import evaluation
-from utilities import localImageSave, deleteSessionImages, genKey, createImageInfo, imagePaths, sessionTimings
+from utilities import deleteSessionImages, createImageInfo, sessionTimings
+from generateSessionFolder import generateSessionFolder
+from localImageSave import localImageSave
 from format_images import formatImages
 from imageCropping import cropImages
 from postProcess import postProcess
@@ -26,27 +28,27 @@ async def eye_evaluation(
     # need to change the time.time() method as it does not take into account time zones
     sessionTimings['ImagesSent'] = time_stamp
     sessionTimings['ImagesRecieved'] = time.time()
-    # generate a key for this session
-    session_key = genKey()
+    # Create Folder struct for this session
+    sessionId, imagePaths = generateSessionFolder('images_store')
     # save images localy
-    imageList = await localImageSave(images)
+    imageList = await localImageSave(images, imagePaths[1])
     sessionTimings['ImagesSavedLocally'] = time.time()
     # create session info
     sessionInfo = createImageInfo(imageList)
     # format images
-    formatImages(imagePaths[0], imagePaths[1])
+    formatImages(imagePaths[1], imagePaths[2])
     sessionTimings['ImagesFormatted'] = time.time()
     # crop images
-    sessionInfo = cropImages(imagePaths[1], imagePaths[2], imageList, sessionInfo)
+    sessionInfo = cropImages(imagePaths[2], imagePaths[3], imageList, sessionInfo)
     sessionTimings['ImagesCropped'] = time.time()
     # evaluate images
-    sessionInfo = evaluation(imagePaths[2], sessionInfo)
+    sessionInfo = evaluation(imagePaths[3], sessionInfo)
     sessionTimings['ImagesEvaluated'] = time.time()
     # average results
     chosenImageNames, sessionInfo = postProcess(sessionInfo)
     # save to db
-    # delete session images
-    deleteSessionImages(imagePaths)
+    # delete session images (not needed and can save images as is)
+    #deleteSessionImages(imagePaths)
 
     return {
         "kiosk_id": kiosk_id,

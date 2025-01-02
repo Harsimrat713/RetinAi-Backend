@@ -1,6 +1,5 @@
 import torch
 from PIL import Image
-from utilities import imagePaths
 from glaucoma_model import GlaucomaDiagnoser
 import torchvision.transforms as transforms
 
