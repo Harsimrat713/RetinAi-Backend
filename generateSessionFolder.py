@@ -15,12 +15,9 @@ def generateSessionFolder(imageStoreLocation):
     # Make path to recieved images
     path.append(f"{path[0]}/recieved_images")
     os.makedirs(path[1])
-    # Make path to formatted images
-    path.append(f"{path[0]}/formatted_images")
-    os.makedirs(path[2])
     # Make path to cropped images
     path.append(f"{path[0]}/cropped_images")
-    os.makedirs(path[3])
+    os.makedirs(path[2])
     
     return varifiedID, path
 

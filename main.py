@@ -6,7 +6,6 @@ from evaluation import evaluation
 from utilities import createImageInfo, sessionTimings
 from generateSessionFolder import generateSessionFolder
 from localImageSave import localImageSave
-from format_images import formatImages
 from imageCropping import cropImages
 from postProcess import postProcess
 
@@ -35,14 +34,12 @@ async def eye_evaluation(
     sessionTimings['ImagesSavedLocally'] = time.time()
     # create session info
     sessionInfo = createImageInfo(imageList)
-    # format images
-    formatImages(imagePaths[1], imagePaths[2])
-    sessionTimings['ImagesFormatted'] = time.time()
+    # format images # Deprecated
     # crop images
-    sessionInfo = cropImages(imagePaths[2], imagePaths[3], imageList, sessionInfo)
+    sessionInfo = cropImages(imagePaths[1], imagePaths[2], imageList, sessionInfo)
     sessionTimings['ImagesCropped'] = time.time()
     # evaluate images
-    sessionInfo = evaluation(imagePaths[3], sessionInfo)
+    sessionInfo = evaluation(imagePaths[2], sessionInfo)
     sessionTimings['ImagesEvaluated'] = time.time()
     # average results
     chosenImageNames, sessionInfo = postProcess(sessionInfo)
