@@ -23,7 +23,8 @@ Frame Work: FastAPI <br>
 
 2. Activate virtual environment "venv" using
 
-- `$ source .venv/Scripts/activate`
+- Windows: `$ source .venv/Scripts/activate`
+- Linux: `$ source .venv/bin/activate`
 
 3. Install all required packages using
 
