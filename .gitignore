@@ -3,3 +3,4 @@
 models
 images_store
 __pycache__/
+sql_manipulation/sql_config.py

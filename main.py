@@ -8,6 +8,7 @@ from generateSessionFolder import generateSessionFolder
 from localImageSave import localImageSave
 from imageCropping import cropImages
 from postProcess import postProcess
+from sql_manipulation.sql_main import info_Save
 
 app = FastAPI()
 
@@ -44,6 +45,13 @@ async def eye_evaluation(
     # average results
     chosenImageNames, sessionInfo = postProcess(sessionInfo)
     # save to db
+    saveData = {
+        "kiosk_id": kiosk_id,
+        "image_Info": sessionInfo,
+        "chosen_Images": chosenImageNames,
+        "image_Paths": imagePaths
+        }
+    info_Save(sessionId, saveData)
     # delete session images (not needed and can save images as is)
 
     return {
@@ -51,5 +59,5 @@ async def eye_evaluation(
         "uploaded_files": imageList,
         "image_Info": sessionInfo,
         "session_Timings":sessionTimings,
-        "chosen_Images": chosenImageNames
+        "chosen_Images": chosenImageNames,
         }
